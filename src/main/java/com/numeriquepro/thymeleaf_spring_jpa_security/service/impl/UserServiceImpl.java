@@ -49,10 +49,17 @@ public class UserServiceImpl implements UserService {
         }
 
         Set<RoleEntity> roles = roleNames.stream()
-                .map(name -> roleRepository.findByName("ROLE_" + name.toUpperCase())
-                        .orElseThrow(() -> new RuntimeException("Role not found: " + name)))
+                .map(name -> {
+                    String fullName = "ROLE_" + name.toUpperCase();
+                    return roleRepository.findByName(fullName)
+                            .orElseGet(() -> {
+                                // Si le rôle n'existe pas, on le crée
+                                RoleEntity newRole = new RoleEntity();
+                                newRole.setName(fullName);
+                                return roleRepository.save(newRole);
+                            });
+                })
                 .collect(Collectors.toSet());
-
         userEntity.setRoles(roles);
 
         // 5. Sauvegarde

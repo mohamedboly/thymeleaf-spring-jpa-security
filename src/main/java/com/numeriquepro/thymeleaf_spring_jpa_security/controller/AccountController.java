@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class AccountController {
@@ -53,6 +54,19 @@ public class AccountController {
             result.addError(
                     new FieldError("userDto", "email", "Email address is already used")
             );
+        }
+
+        Set<String> validRoles = Set.of("ADMIN", "CLIENT", "ANIMATEUR");
+        System.out.println("Valid roles: " );
+        System.out.println(userDto.getRoles());
+        for (String role : userDto.getRoles()) {
+            System.out.println("Checking role: " + role);
+            if (!validRoles.contains(role)) {
+                System.out.println("Role is invalid: " + role);
+                result.addError(
+                        new FieldError("userDto", "roles", "Invalid role: " + role)
+                );
+            }
         }
 
         // S’il y a des erreurs, on retourne à la page d’inscription
