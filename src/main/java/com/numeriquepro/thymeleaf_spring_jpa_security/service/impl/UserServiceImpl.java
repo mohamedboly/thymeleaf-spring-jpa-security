@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     public UserDto save(UserDto userDto) {
         userDto.setId(null);
 
-        // 1. Mapper de base (sans les rôles)
+        // Mapper de base (sans les rôles)
         UserEntity userEntity = UserMapper.toUserEntity(userDto);
 
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
