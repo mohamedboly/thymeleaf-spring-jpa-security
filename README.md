@@ -76,7 +76,7 @@ Ce document explique deux façons d'utiliser une page de connexion personnalisé
 
 * `src/main/resources/templates/admin/login.html`
 * `src/main/resources/templates/index.html` (ou accueil custom)
-* ✉ `src/main/resources/templates/admin/login_error.html` (si tu veux une page d'erreur de login personnalisée)
+* `src/main/resources/templates/admin/login_error.html` (si on veux une page d'erreur de login personnalisée)
 
 ### Contrôleurs à créer
 
@@ -88,15 +88,15 @@ public String loginPage() {
 }
 ```
 
-> Aucun `POST /admin/login` à créer → géré automatiquement par Spring ✅
-> Aucun `POST /admin/logout` à créer → Spring gère aussi ça automatiquement ✅
+> Aucun `POST /admin/login` à créer → géré automatiquement par Spring 
+> Aucun `POST /admin/logout` à créer → Spring gère aussi ça automatiquement 
 
-### ❄ Comportement de Spring avec URLs custom
+### Comportement de Spring avec URLs custom
 
 * Si `/admin/login` échoue : redirection automatique vers `/admin/login?error`
 * Si `/admin/logout` réussi : redirection vers `/admin/login?logout`
 
-### ➕ Gérer les messages dans `admin/login.html`
+### Gérer les messages dans `admin/login.html`
 
 ```html
 <div th:if="${param.error}" class="alert alert-danger">
