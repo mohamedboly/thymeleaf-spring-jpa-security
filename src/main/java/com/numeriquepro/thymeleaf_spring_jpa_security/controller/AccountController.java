@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class AccountController {
     private final UserService userService;
@@ -25,6 +27,7 @@ public class AccountController {
         UserDto userDto = new UserDto();
         model.addAttribute("userDto", userDto);
         model.addAttribute("success", false);
+        model.addAttribute("availableRoles", List.of("ADMIN", "CLIENT", "ANIMATEUR"));
         return "register";
     }
 
@@ -36,13 +39,7 @@ public class AccountController {
             BindingResult result
     ) {
 
-        System.out.println("Saving user in controlleurs: " );
 
-        System.out.println("  First name: " + userDto.getFirstName());
-        System.out.println("  Last name : " + userDto.getLastName());
-        System.out.println("  Email     : " + userDto.getEmail());
-        System.out.println("  Password  : " + userDto.getPassword());
-        System.out.println("  Role      : " + userDto.getRole());
         // Vérifie que les mots de passe correspondent
         if (!userDto.getPassword().equals(userDto.getConfirmPassword())) {
             result.addError(

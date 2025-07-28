@@ -1,5 +1,6 @@
 package com.numeriquepro.thymeleaf_spring_jpa_security.dto;
 
+import com.numeriquepro.thymeleaf_spring_jpa_security.entity.RoleEntity;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -9,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,7 +30,7 @@ public class UserDto implements Serializable {
     private String lastName;
     private String address;
     private String phone;
-    private String role = "CLIENT";
+    private Set<String> roles = new HashSet<>();
     @NotEmpty
     @Email
     private String email;

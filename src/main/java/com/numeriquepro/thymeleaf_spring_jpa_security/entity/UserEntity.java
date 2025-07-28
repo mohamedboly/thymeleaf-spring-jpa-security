@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -23,6 +25,12 @@ public class UserEntity {
     private String phone;
     @Column(unique = true, nullable = false)
     private String email;
-    private String role; // e.g., "ROLE_USER", "ROLE_ADMIN"
     private Date createdAt; // to store the date when the user was created
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<RoleEntity> roles = new HashSet<>();
 }
