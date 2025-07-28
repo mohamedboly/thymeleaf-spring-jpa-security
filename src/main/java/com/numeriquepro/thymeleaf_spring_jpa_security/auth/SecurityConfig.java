@@ -25,9 +25,16 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
+                        .loginPage("/login")
                         .defaultSuccessUrl("/", true)
                 )
-                .logout(config -> config.logoutSuccessUrl("/"))
+                .logout(logout ->
+                        logout.logoutSuccessUrl("/")
+                        .clearAuthentication(true)
+                                .deleteCookies("JSESSIONID")
+                        .invalidateHttpSession(true)
+                )
+
                 .build();
     }
 

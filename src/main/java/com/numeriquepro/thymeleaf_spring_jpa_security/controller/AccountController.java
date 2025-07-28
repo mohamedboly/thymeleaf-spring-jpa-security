@@ -1,4 +1,5 @@
 package com.numeriquepro.thymeleaf_spring_jpa_security.controller;
+import com.numeriquepro.thymeleaf_spring_jpa_security.dto.LoginDto;
 import com.numeriquepro.thymeleaf_spring_jpa_security.dto.UserDto;
 
 import com.numeriquepro.thymeleaf_spring_jpa_security.service.UserService;
@@ -78,5 +79,15 @@ public class AccountController {
 
         return "register"; // ou page de succès
     }
+
+
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        return "login";
+    }
+
+
+
 
 }
